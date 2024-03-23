@@ -11,16 +11,14 @@ const routes = constructRoutes(layout);
 const applications = constructApplications({
   routes,
   async loadApp({ name }) {
-
-    if (window[name]) {
-      return window[name];
-    } else {
-      throw Error(
-        `Could not find global variable 'window["${name}"]'. Try running pnpm start -- 06-${name}`
-      );
+    try {
+      return await System.import(name);
+    } catch (error) {
+      console.error(`Error al cargar la aplicación ${name}:`, error);
+      throw error; // Propaga el error para que se pueda capturar más arriba si es necesario
     }
   }
-})
+});
 
 const layoutEngine = constructLayoutEngine({
   routes,
@@ -29,4 +27,5 @@ const layoutEngine = constructLayoutEngine({
 
 applications.forEach(registerApplication);
 
+layoutEngine.activate();
 start();
