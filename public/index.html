@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="http://localhost:9001/main.js"></script>
-    <script src="http://localhost:9002/main.js"></script>
-    <title>App</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Root Config</title>
+  <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js"></script>
+  <script type="systemjs-importmap">
+    {
+      "imports": {
+        "react": "https://unpkg.com/react@18.2.0/umd/react.production.min.js",
+        "react-dom": "https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js",
+        "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@6.0.0/lib/es5/system/single-spa.min.js",
+        "appJavascript": "//localhost:9001/main.js",
+        "appReact": "//localhost:9002/main.js",
+        "root-config": "//localhost:9000/main.js"
+      }
+    }
+  </script>
+</head>
+
   </head>
   <body>
-    <div id="app-mf-javascript"></div>
-    <div id="single-spa-application:@app-mf-react"></div>
+    <div>
+      <div id="single-spa-application:reactApp"></div>
+      <div id="app-javascript"></div>
+    </div>
+    <script>
+      System.import("root-config");
+    </script>
   </body>
 </html>
